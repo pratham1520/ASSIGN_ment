@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Specials | TappAV Deals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-orange: #e44d26;
+            --dark-bg: #0a0a0a;
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            --discount-red: #ff3b30;
+        }
+
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #fcfcfc; color: #1d1d1f; }
+
+        /* Navigation */
+        .navbar { background: #000; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-links a { transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-orange) !important; }
+
+        /* Luxury Header with a Special Gradient */
+        .page-header { 
+            background: linear-gradient(135deg, #0a0a0a 0%, #2c0b02 100%); 
+            color: #fff; 
+            padding: 100px 20px; 
+            text-align: center;
+        }
+        .page-header h1 { 
+            font-size: 3.5rem; 
+            margin: 0; 
+            background: linear-gradient(to right, #ff9500, #ff3b30);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .page-header p { font-size: 1.2rem; opacity: 0.8; margin-top: 10px; }
+
+        /* Product Grid */
+        .container { 
+            max-width: 1300px; 
+            margin: -60px auto 60px; 
+            padding: 0 20px; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 40px; 
+        }
+
+        /* Premium Special Card */
+        .product-card { 
+            background: #fff; 
+            border-radius: 24px; 
+            padding: 40px; 
+            text-align: center; 
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            border: 2px solid rgba(228, 77, 38, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sale Badge */
+        .sale-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--discount-red);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .product-card:hover { 
+            transform: scale(1.03);
+            box-shadow: 0 30px 60px rgba(228, 77, 38, 0.15);
+        }
+
+        .product-card img { 
+            width: 100%; 
+            height: 250px; 
+            object-fit: contain; 
+            margin-bottom: 20px;
+        }
+
+        .product-card h3 { font-size: 24px; color: #333; margin-bottom: 10px; }
+
+        /* Price Styling */
+        .old-price { 
+            text-decoration: line-through; 
+            color: #aaa; 
+            font-size: 18px; 
+            margin-right: 10px; 
+        }
+        .new-price { 
+            color: var(--discount-red); 
+            font-weight: 700; 
+            font-size: 28px; 
+        }
+
+        .buy-btn { 
+            background: var(--primary-orange); 
+            color: white; 
+            padding: 14px 30px; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-size: 16px; 
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .buy-btn:hover { background: #000; }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" style="color:white; font-size:24px; font-weight:600;">Tapp<span style="color:#e44d26;">AV</span></div>
+        <ul class="nav-links" style="list-style:none; display:flex; gap:30px; margin:0; padding:0;">
+            <li><a href="index.html" style="color:white; text-decoration:none; font-size:14px;">Home</a></li>
+            <li><a href="specials.html" style="color:#e44d26; text-decoration:none; font-size:14px; font-weight:600;">Specials</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <h1>Exclusive Deals</h1>
+        <p>Premium Home Cinema Gear at Unbeatable Prices</p>
+    </div>
+
+    <div class="container">
+        <div class="product-card">
+            <div class="sale-badge">Save 20%</div>
+            <img src="projector.jpg" alt="Special Bundle">
+            <h3>Ultimate 4K Bundle</h3>
+            <p>Epson Projector + Denon Receiver + Cabling</p>
+            <div>
+                <span class="old-price">₹6,50,000</span>
+                <span class="new-price">₹5,10,000</span>
+            </div>
+            <a href="Special1.html" class="buy-btn">Grab Deal</a>
+        </div>
+
+        <div class="product-card">
+            <div class="sale-badge">Clearance</div>
+            <img src="ELAC.webp" alt="Speaker Deal">
+            <h3>Audiophile's Choice</h3>
+            <p>ELAC Reference Pair + Sonos Era 100 Free</p>
+            <div>
+                <span class="old-price">₹1,40,000</span>
+                <span class="new-price">₹1,15,000</span>
+            </div>
+            <a href="Special2.html" class="buy-btn">Grab Deal</a>
+        </div>
+
+        <div class="product-card">
+            <div class="sale-badge">Deal of the Day</div>
+            <img src="decd.webp" alt="TV Deal">
+            <h3>Sony BRAVIA Cinema Kit</h3>
+            <p>65" OLED + HT-A7000 Soundbar Bundle</p>
+            <div>
+                <span class="old-price">₹4,80,000</span>
+                <span class="new-price">₹3,95,000</span>
+            </div>
+            <a href="Special3.html" class="buy-btn">Grab Deal</a>
+        </div>
+    </div>
+
+</body>
+</html>
