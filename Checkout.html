@@ -19,7 +19,6 @@
 
         .container { max-width: 900px; margin: 30px auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; padding: 0 15px; }
 
-        /* Left Side: Payment Options */
         .payment-methods { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .method-item { border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; transition: 0.3s; position: relative; }
         .method-item:hover { border-color: var(--gpay-blue); background: #f8fbff; }
@@ -31,9 +30,8 @@
         #qr-section { display: none; text-align: center; padding: 20px; border: 1px dashed #bbb; border-radius: 8px; margin-top: 15px; background: #fafafa; }
         .qr-placeholder { width: 180px; height: 180px; background: #eee; margin: 10px auto; display: flex; align-items: center; justify-content: center; border: 4px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 
-        /* Right Side: Order Summary */
         .order-info { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); height: fit-content; }
-        .cart-item-list { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .cart-item-list { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; max-height: 300px; overflow-y: auto; }
         .price-detail { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
         .total-price { border-top: 2px solid #eee; padding-top: 15px; font-weight: 600; font-size: 18px; display: flex; justify-content: space-between; }
 
@@ -117,52 +115,61 @@
 </div>
 
 <script>
-    // 1. Price Map (Bhai yahan tu prices change kar sakta hai)
+    // 1. Price Map - Make sure names match exactly with index.html addToCart('Name')
     const productPrices = {
         "Sonos Beam": 45900,
         "B&W Headphones": 32000,
         "Denon Receiver": 85000,
-        "Polk Speakers": 22000
+        "Polk Speakers": 22000,
+        "Epson Projector": 125000 // Added extra based on your nav
     };
 
-    // 2. Load Cart and Calculate
+    // 2. Load and Render Cart
     function loadOrderSummary() {
         const cart = JSON.parse(localStorage.getItem('tappav_cart')) || [];
         const container = document.getElementById('cart-items-container');
         let subtotal = 0;
 
         if (cart.length === 0) {
-            container.innerHTML = `<p style="font-size: 13px; color: red;">Your cart is empty!</p>`;
+            container.innerHTML = `<p style="font-size: 13px; color: #e53935; text-align:center; padding: 20px;">Your cart is empty!</p>`;
+            updateDisplay(0, 0, 0);
             return;
         }
 
-        container.innerHTML = ''; // Clear
+        container.innerHTML = ''; 
         cart.forEach(itemName => {
-            const price = productPrices[itemName] || 15000; // Default price if not in map
+            // Find price or use a default if name doesn't match
+            const price = productPrices[itemName] || 25000; 
             subtotal += price;
             
             container.innerHTML += `
                 <div class="price-detail">
                     <span style="font-weight: 500;">${itemName}</span>
-                    <span>₹${price.toLocaleString()}</span>
+                    <span>₹${price.toLocaleString('en-IN')}</span>
                 </div>
             `;
         });
 
         const tax = subtotal * 0.18;
         const total = subtotal + tax;
-
-        document.getElementById('subtotal-price').innerText = "₹" + subtotal.toLocaleString();
-        document.getElementById('tax-price').innerText = "₹" + tax.toLocaleString();
-        document.getElementById('total-amount').innerText = "₹" + total.toLocaleString();
+        updateDisplay(subtotal, tax, total);
     }
 
-    // 3. Method Selector
+    function updateDisplay(sub, tx, tot) {
+        document.getElementById('subtotal-price').innerText = "₹" + sub.toLocaleString('en-IN');
+        document.getElementById('tax-price').innerText = "₹" + tx.toLocaleString('en-IN');
+        document.getElementById('total-amount').innerText = "₹" + tot.toLocaleString('en-IN');
+    }
+
     function selectMethod(type, element) {
         document.querySelectorAll('.method-item').forEach(i => i.classList.remove('active'));
         element.classList.add('active');
-        document.getElementById('final-pay-btn').disabled = false;
-        document.getElementById('final-pay-btn').innerText = "Complete Payment";
+        
+        const cart = JSON.parse(localStorage.getItem('tappav_cart')) || [];
+        if(cart.length > 0) {
+            document.getElementById('final-pay-btn').disabled = false;
+            document.getElementById('final-pay-btn').innerText = "Complete Payment";
+        }
 
         if(type === 'upi') {
             document.getElementById('qr-section').style.display = 'block';
@@ -173,16 +180,13 @@
         }
     }
 
-    // 4. Process Payment
     function startProcessing() {
         const btn = document.getElementById('final-pay-btn');
         btn.innerText = "Verifying Transaction...";
         btn.disabled = true;
 
         setTimeout(() => {
-            // Clear cart on success
-            localStorage.removeItem('tappav_cart');
-            
+            localStorage.removeItem('tappav_cart'); // Clear after purchase
             document.getElementById('main-ui').style.display = 'none';
             document.getElementById('success-msg').style.display = 'block';
             
@@ -192,6 +196,7 @@
         }, 2500);
     }
 
+    // Run on load
     window.onload = loadOrderSummary;
 </script>
 
