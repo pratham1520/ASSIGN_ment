@@ -493,3 +493,61 @@ body {
         padding: 12px 20px;
     }
 }
+/* --- Additional Mobile Fixes for TappAV --- */
+@media (max-width: 768px) {
+    /* Footer responsiveness fix */
+    footer div[style*="display: grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        text-align: center;
+    }
+
+    footer div[style*="border-left"] {
+        border-left: none !important;
+        border-bottom: 2px solid #ffcc00;
+        display: inline-block;
+        padding-left: 0 !important;
+        padding-bottom: 5px;
+    }
+
+    footer div[style*="display: flex"] {
+        justify-content: center;
+    }
+
+    /* Product Page Spacing Fix */
+    .product-page {
+        padding: 80px 5% 30px;
+    }
+
+    .product-image-box {
+        min-width: 100%;
+        padding: 20px;
+    }
+
+    .product-details-box {
+        min-width: 100%;
+        margin-top: 20px;
+    }
+
+    /* Specs Table Horizontal Scroll Fix */
+    .specs-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .specs-table td {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    /* Tech Specs Grid Fix */
+    .tech-specs ul {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Specs Grid (The 3 small boxes) */
+    .specs-grid {
+        grid-template-columns: 1fr !important; /* Stack boxes on top of each other */
+    }
+}
