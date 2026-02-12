@@ -102,6 +102,9 @@
         </div>
         
         <button class="pay-btn" id="final-pay-btn" onclick="startProcessing()" disabled>Select a Method</button>
+        <button onclick="clearCart()" style="background: #444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; margin-bottom: 10px;">
+    Empty Cart
+</button>
         <p style="font-size: 10px; color: #999; text-align: center; margin-top: 15px;">100% Secure Transaction via SSL Encryption</p>
         <center><a href="index.html" style="font-size: 12px; color: #c34122; text-decoration: none;">← Back to Shopping</a></center>
     </div>
@@ -115,16 +118,16 @@
 </div>
 
 <script>
-    // 1. Price Map - Make sure names match exactly with index.html addToCart('Name')
+    // 1. Price Map
     const productPrices = {
         "Sonos Beam": 45900,
         "B&W Headphones": 32000,
         "Denon Receiver": 85000,
         "Polk Speakers": 22000,
-        "Epson Projector": 125000 // Added extra based on your nav
+        "Epson Projector": 125000
     };
 
-    // 2. Load and Render Cart
+    // 2. Load and Render Cart with "Remove" button
     function loadOrderSummary() {
         const cart = JSON.parse(localStorage.getItem('tappav_cart')) || [];
         const container = document.getElementById('cart-items-container');
@@ -137,14 +140,17 @@
         }
 
         container.innerHTML = ''; 
-        cart.forEach(itemName => {
-            // Find price or use a default if name doesn't match
+        cart.forEach((itemName, index) => {
             const price = productPrices[itemName] || 25000; 
             subtotal += price;
             
+            // Yahan har item ke saath ek chota 'X' button add kiya hai
             container.innerHTML += `
-                <div class="price-detail">
-                    <span style="font-weight: 500;">${itemName}</span>
+                <div class="price-detail" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <button onclick="removeItem(${index})" style="background: #ff4d4d; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; line-height: 1;">✕</button>
+                        <span style="font-weight: 500;">${itemName}</span>
+                    </div>
                     <span>₹${price.toLocaleString('en-IN')}</span>
                 </div>
             `;
@@ -153,6 +159,23 @@
         const tax = subtotal * 0.18;
         const total = subtotal + tax;
         updateDisplay(subtotal, tax, total);
+    }
+
+    // 3. Ek specific item hatane ke liye
+    function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem('tappav_cart')) || [];
+        cart.splice(index, 1); // List se wo item hatao
+        localStorage.setItem('tappav_cart', JSON.stringify(cart)); // Wapas save karo
+        loadOrderSummary(); // Page content update karo
+        
+        // Agar page refresh karna pade automatic (optional)
+        // location.reload(); 
+    }
+
+    // 4. Poora cart saaf karne ke liye
+    function clearCart() {
+        localStorage.removeItem('tappav_cart');
+        location.reload();
     }
 
     function updateDisplay(sub, tx, tot) {
@@ -186,7 +209,7 @@
         btn.disabled = true;
 
         setTimeout(() => {
-            localStorage.removeItem('tappav_cart'); // Clear after purchase
+            localStorage.removeItem('tappav_cart');
             document.getElementById('main-ui').style.display = 'none';
             document.getElementById('success-msg').style.display = 'block';
             
@@ -196,7 +219,6 @@
         }, 2500);
     }
 
-    // Run on load
     window.onload = loadOrderSummary;
 </script>
 
