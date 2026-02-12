@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TappAV | Login & Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<div class="background-overlay"></div> <div class="auth-container">
+    <div class="auth-box">
+        <div class="logo-auth" style="margin-bottom: 30px; font-size: 32px; font-weight: bold; color: #fff;">Tapp<span style="color: #ffcc00;">AV</span></div>
+        
+        <div class="auth-tabs">
+            <button id="loginTab" class="active" onclick="toggleAuth('login')">LOGIN</button>
+            <button id="signupTab" onclick="toggleAuth('signup')">SIGN UP</button>
+        </div>
+
+        <form id="loginForm" class="auth-form-content">
+            <div class="input-group">
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-primary auth-btn" style="width: 100%;">Login</button>
+            <p class="forgot-password-link"><a href="#">Forgot Password?</a></p>
+        </form>
+
+        <form id="signupForm" class="auth-form-content" style="display: none;">
+            <div class="input-group">
+                <input type="text" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Create Password" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Confirm Password" required>
+            </div>
+            <button type="submit" class="btn-primary auth-btn" style="width: 100%;">Create Account</button>
+        </form>
+        
+        <p class="auth-terms">By continuing, you agree to TappAV's <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>.</p>
+    </div>
+</div>
+
+<script>
+    function toggleAuth(type) {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+
+        if (type === 'login') {
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+        } else {
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            loginTab.classList.remove('active');
+            signupTab.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>
