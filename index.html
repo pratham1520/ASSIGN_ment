@@ -239,33 +239,32 @@
     <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" style="width: 35px; height: 35px;" alt="WhatsApp Support">
 </a>
 <script>
-    // Ye function check karega ki koi user login hai ya nahi
-    window.onload = function() {
+    // Ek hi function rakhenge jo check bhi karega aur load bhi
+    function checkLogin() {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         const userName = localStorage.getItem('currentUser');
         const authArea = document.getElementById('authSection');
 
         if (isLoggedIn === 'true' && userName) {
-            // Agar login hai, toh "Hello, Name" aur "Logout" button dikhao
+            // Agar login hai, toh purana "Login" button hatao aur greeting dikhao
             authArea.innerHTML = `
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <span style="color: #ffcc00; font-weight: 600;">Hello, ${userName}!</span>
-                    <a href="#" onclick="logoutUser()" style="color: #fff; font-size: 12px; text-decoration: underline;">Logout</a>
+                    <a href="#" onclick="logoutUser()" style="color: #fff; font-size: 12px; text-decoration: underline; cursor: pointer;">Logout</a>
                 </div>
             `;
         }
     }
 
-    // Logout karne ka function
+    // Logout function
     function logoutUser() {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('currentUser');
-        location.reload(); // Page refresh karega toh wapas Login dikhne lagega
+        location.reload(); 
     }
 
-    // Page load hote hi check karo
+    // Window load hote hi sirf checkLogin ko call karo
     window.onload = checkLogin;
 </script>
-
 </body>
 </html>

@@ -195,55 +195,61 @@
     </div>
 
     <script>
-        function toggleAuth(type) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const loginTab = document.getElementById('loginTab');
-            const signupTab = document.getElementById('signupTab');
+    function toggleAuth(type) {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
 
-            if (type === 'login') {
-                loginForm.classList.add('active');
-                signupForm.classList.remove('active');
-                loginTab.classList.add('active');
-                signupTab.classList.remove('active');
-            } else {
-                signupForm.classList.add('active');
-                loginForm.classList.remove('active');
-                signupTab.classList.add('active');
-                loginTab.classList.remove('active');
-            }
+        if (type === 'login') {
+            loginForm.classList.add('active');
+            signupForm.classList.remove('active');
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+        } else {
+            signupForm.classList.add('active');
+            loginForm.classList.remove('active');
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
         }
+    }
 
-        // Signup Logic
-        document.getElementById('signupForm').onsubmit = function(e) {
-            e.preventDefault();
-            const user = document.getElementById('regUser').value;
-            const pass = document.getElementById('regPass').value;
-            
-            localStorage.setItem('savedUser', user);
-            localStorage.setItem('savedPass', pass);
-            
-            alert("Success! Account created for " + user + ". You can now login.");
-            toggleAuth('login');
-        };
+    // Signup Logic - Saving everything
+    document.getElementById('signupForm').onsubmit = function(e) {
+        e.preventDefault();
+        const user = document.getElementById('regUser').value;
+        const email = document.getElementById('regEmail').value;
+        const pass = document.getElementById('regPass').value;
+        
+        localStorage.setItem('savedUser', user);
+        localStorage.setItem('savedEmail', email);
+        localStorage.setItem('savedPass', pass);
+        
+        alert("Account Created! Now login with your Name: " + user);
+        toggleAuth('login');
+    };
 
-        // Login Logic
-        document.getElementById('loginForm').onsubmit = function(e) {
-            e.preventDefault();
-            const user = document.getElementById('loginUser').value;
-            const pass = document.getElementById('loginPass').value;
-            
-            const savedUser = localStorage.getItem('savedUser');
-            const savedPass = localStorage.getItem('savedPass');
+    // Login Logic - Works with Name OR Email
+    document.getElementById('loginForm').onsubmit = function(e) {
+        e.preventDefault();
+        const inputVal = document.getElementById('loginUser').value; // Name or Email
+        const passVal = document.getElementById('loginPass').value;
+        
+        const savedUser = localStorage.getItem('savedUser');
+        const savedEmail = localStorage.getItem('savedEmail');
+        const savedPass = localStorage.getItem('savedPass');
 
-            if (user === savedUser && pass === savedPass) {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('currentUser', user);
-                window.location.href = "index.html"; 
-            } else {
-                alert("Incorrect password or username!");
-            }
-        };
-    </script>
+        // Check if Name or Email matches AND password matches
+        if ((inputVal === savedUser || inputVal === savedEmail) && passVal === savedPass) {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', savedUser);
+            
+            alert("Login Successful! Welcome " + savedUser);
+            window.location.href = "index.html"; // Seedha home page pe
+        } else {
+            alert("Galat details! Signup wala naam aur password sahi se daalo.");
+        }
+    };
+</script>
 </body>
 </html>
