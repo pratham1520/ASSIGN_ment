@@ -18,6 +18,10 @@
                 <li><a href="product.html">Epson</a></li>
                 <li><a href="product2.html">Sonos</a></li>
                 <li><a href="login.html" style="color: #ffcc00; font-weight: bold;">Login</a></li>
+                 
+                <li id="authSection">
+        <a href="login.html" style="color: #ffcc00; font-weight: bold;">Login</a>
+    </li>
             </ul>
         </nav>
 
@@ -234,6 +238,34 @@
    target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" style="width: 35px; height: 35px;" alt="WhatsApp Support">
 </a>
+<script>
+    // Ye function check karega ki koi user login hai ya nahi
+    function checkLogin() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const userName = localStorage.getItem('currentUser');
+        const authArea = document.getElementById('auth-area');
+
+        if (isLoggedIn === 'true' && userName) {
+            // Agar login hai, toh "Hello, Name" aur "Logout" button dikhao
+            authArea.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span style="color: #ffcc00; font-weight: 600;">Hello, ${userName}!</span>
+                    <a href="#" onclick="logoutUser()" style="color: #fff; font-size: 12px; text-decoration: underline;">Logout</a>
+                </div>
+            `;
+        }
+    }
+
+    // Logout karne ka function
+    function logoutUser() {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        location.reload(); // Page refresh karega toh wapas Login dikhne lagega
+    }
+
+    // Page load hote hi check karo
+    window.onload = checkLogin;
+</script>
 
 </body>
 </html>
