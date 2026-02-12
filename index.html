@@ -240,10 +240,10 @@
 </a>
 <script>
     // Ye function check karega ki koi user login hai ya nahi
-    function checkLogin() {
+    window.onload = function() {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         const userName = localStorage.getItem('currentUser');
-        const authArea = document.getElementById('auth-area');
+        const authArea = document.getElementById('authSection');
 
         if (isLoggedIn === 'true' && userName) {
             // Agar login hai, toh "Hello, Name" aur "Logout" button dikhao
