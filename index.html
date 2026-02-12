@@ -220,36 +220,35 @@
 </footer>
 <script>
     // --- CART LOGIC ---
-        let cartItems = JSON.parse(localStorage.getItem('tappav_cart')) || [];
+    let cartItems = JSON.parse(localStorage.getItem('tappav_cart')) || [];
 
-        function updateCartUI() {
-            const countLabel = document.getElementById('cart-count');
-            const totalItems = cartItems.length;
-            
-            if (totalItems > 0) {
-                countLabel.innerText = totalItems;
-                countLabel.style.display = 'block';
-            } else {
-                countLabel.style.display = 'none';
-            }
+    function updateCartUI() {
+        const countLabel = document.getElementById('cart-count');
+        const totalItems = cartItems.length;
+        
+        if (totalItems > 0) {
+            countLabel.innerText = totalItems;
+            countLabel.style.display = 'block';
+        } else {
+            countLabel.style.display = 'none';
         }
+    }
 
-        function addToCart(productName) {
-            cartItems.push(productName);
-            localStorage.setItem('tappav_cart', JSON.stringify(cartItems));
-            updateCartUI();
-            
-            // Nice Feedback
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "✓ Added";
-            btn.style.background = "#22c55e";
-            
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "#c34122";
-            }, 1000);
-        }
+    function addToCart(productName) {
+        cartItems.push(productName);
+        localStorage.setItem('tappav_cart', JSON.stringify(cartItems));
+        updateCartUI();
+        
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = "✓ Added";
+        btn.style.background = "#22c55e";
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "#c34122";
+        }, 1000);
+    }
     // Ek hi function rakhenge jo check bhi karega aur load bhi
     function checkLogin() {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
